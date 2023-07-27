@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Wall
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background
+    uniqueID: 3207231337
+    locked: 0
+  - name: Floor
+    uniqueID: 3128062993
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Wall
+    uniqueID: 2912318721
+    locked: 0
+  - name: CamButton
+    uniqueID: 1133792607
+    locked: 0
+  - name: Keys
+    uniqueID: 1801007889
+    locked: 0
+  - name: Character
+    uniqueID: 4244722129
+    locked: 0
+  - name: Guard
+    uniqueID: 1812035913
+    locked: 0
+  - name: Door
+    uniqueID: 2514597813
+    locked: 0
+  - name: CamVision
+    uniqueID: 1288344407
+    locked: 0
+  - name: UI
+    uniqueID: 3030934499
+    locked: 0
