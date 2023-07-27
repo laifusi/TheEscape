@@ -55,15 +55,29 @@ public class LevelBuildingTool : EditorWindow
         float cameraSize = biggerSize / 2f + 1.5f;
         mainCam.orthographicSize = cameraSize;
 
-        SpriteRenderer floor = Instantiate(floorPrefab, Vector3.zero, Quaternion.identity).GetComponent<SpriteRenderer>();
+        GameObject floorGO = (GameObject)PrefabUtility.InstantiatePrefab(floorPrefab);
+        floorGO.transform.position = Vector3.zero;
+        SpriteRenderer floor = floorGO.GetComponent<SpriteRenderer>();
         floor.size = new Vector2(gridSize.x + 2, gridSize.y + 2);
 
         float xOffset = gridSize.x/2f + 0.5f;
         float yOffset = gridSize.y/2f + 0.5f;
-        SpriteRenderer leftWall = Instantiate(wallPrefab, Vector3.left * xOffset, Quaternion.identity).GetComponent<SpriteRenderer>();
-        SpriteRenderer rightWall = Instantiate(wallPrefab, Vector3.right * xOffset, Quaternion.identity).GetComponent<SpriteRenderer>();
-        SpriteRenderer topWall = Instantiate(wallPrefab, Vector3.up * yOffset, Quaternion.identity).GetComponent<SpriteRenderer>();
-        SpriteRenderer bottomWall = Instantiate(wallPrefab, Vector3.down * yOffset, Quaternion.identity).GetComponent<SpriteRenderer>();
+
+        GameObject leftWallGO = (GameObject)PrefabUtility.InstantiatePrefab(wallPrefab);
+        GameObject rightWallGO = (GameObject)PrefabUtility.InstantiatePrefab(wallPrefab);
+        GameObject topWallGO = (GameObject)PrefabUtility.InstantiatePrefab(wallPrefab);
+        GameObject bottomWallGO = (GameObject)PrefabUtility.InstantiatePrefab(wallPrefab);
+
+        leftWallGO.transform.position = Vector3.left * xOffset;
+        rightWallGO.transform.position = Vector3.right * xOffset;
+        topWallGO.transform.position = Vector3.up * yOffset;
+        bottomWallGO.transform.position = Vector3.down * yOffset;
+
+        SpriteRenderer leftWall = leftWallGO.GetComponent<SpriteRenderer>();
+        SpriteRenderer rightWall = rightWallGO.GetComponent<SpriteRenderer>();
+        SpriteRenderer topWall = topWallGO.GetComponent<SpriteRenderer>();
+        SpriteRenderer bottomWall = bottomWallGO.GetComponent<SpriteRenderer>();
+
         leftWall.size = new Vector2(1, gridSize.y + 2);
         rightWall.size = new Vector2(1, gridSize.y + 2);
         topWall.size = new Vector2(gridSize.x + 2, 1);
@@ -114,6 +128,8 @@ public class LevelBuildingTool : EditorWindow
 
     private void PreparePrefabToPaint(GameObject prefabToPaint, Vector3 location)
     {
-        Instantiate(prefabToPaint, location, Quaternion.identity);
+        //Instantiate(prefabToPaint, location, Quaternion.identity);
+        GameObject prefab = (GameObject)PrefabUtility.InstantiatePrefab(prefabToPaint);
+        prefab.transform.position = location;
     }
 }
