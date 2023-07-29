@@ -7,6 +7,7 @@ public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] float velocity = 5;
     [SerializeField] float swipeThreshold = 125;
+    [SerializeField] float velocityMax = 200;
 
     Rigidbody2D rigidbody2d;
     private Transform myTransform;
@@ -33,15 +34,12 @@ public class CharacterMovement : MonoBehaviour
         myTransform = transform;
         startPosition = myTransform.position;
     }
-
-    void Update()
+    private void Update()
     {
-        if(!caught)
+        if (!caught)
         {
             #region Standalone Controls
             #if UNITY_STANDALONE
-            moving = Mathf.Abs(rigidbody2d.velocity.x) > 0.5f || Mathf.Abs(rigidbody2d.velocity.y) > 0.5f;
-
             if (Input.GetButtonDown("MoveRight"))
             {
                 movements.Add(new Vector2(1, 0));
@@ -112,11 +110,19 @@ public class CharacterMovement : MonoBehaviour
             }
             #endif
             #endregion
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if(!caught)
+        {
+            moving = Mathf.Abs(rigidbody2d.velocity.y) > 0.5f;
 
             if (!moving)
             {
                 #if UNITY_STANDALONE
-                rigidbody2d.velocity = Vector2.zero;
+                //rigidbody2d.velocity = Vector2.zero;
                 #endif
 
                 if (movements.Count > 0)
@@ -133,7 +139,24 @@ public class CharacterMovement : MonoBehaviour
             }
 
             #if UNITY_STANDALONE
-            rigidbody2d.velocity += new Vector2(velocity * horizontal, velocity * vertical);
+            rigidbody2d.AddForce(new Vector2(horizontal, vertical) * velocity*150);
+            //rigidbody2d.velocity += new Vector2(velocity * horizontal, velocity * vertical);
+            /*if(rigidbody2d.velocity.x > velocityMax)
+            {
+                rigidbody2d.velocity = new Vector2(velocityMax, rigidbody2d.velocity.y);
+            }
+            else if (rigidbody2d.velocity.x < -velocityMax)
+            {
+                rigidbody2d.velocity = new Vector2(-velocityMax, rigidbody2d.velocity.y);
+            }
+            else if (rigidbody2d.velocity.y > velocityMax)
+            {
+                rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, velocityMax);
+            }
+            else if (rigidbody2d.velocity.y < -velocityMax)
+            {
+                rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, -velocityMax);
+            }*/
             #endif
 
             #if UNITY_ANDROID
