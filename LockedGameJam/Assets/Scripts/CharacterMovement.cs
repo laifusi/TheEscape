@@ -117,7 +117,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if(!caught)
         {
-            moving = Mathf.Abs(rigidbody2d.velocity.y) > 0.5f;
+            moving = Mathf.Abs(rigidbody2d.velocity.y) > 0.5f || Mathf.Abs(rigidbody2d.velocity.x) > 0.5f;
 
             if (!moving)
             {
@@ -139,7 +139,8 @@ public class CharacterMovement : MonoBehaviour
             }
 
             #if UNITY_STANDALONE
-            rigidbody2d.AddForce(new Vector2(horizontal, vertical) * velocity*150);
+            if(!moving)
+                rigidbody2d.AddForce(new Vector2(horizontal, vertical) * velocity*150);
             //rigidbody2d.velocity += new Vector2(velocity * horizontal, velocity * vertical);
             /*if(rigidbody2d.velocity.x > velocityMax)
             {
