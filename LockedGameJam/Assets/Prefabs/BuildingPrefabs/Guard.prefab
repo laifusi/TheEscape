@@ -31,9 +31,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7804262640723327358
 SpriteRenderer:
@@ -125,9 +126,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5205ccc6ad497f14681dd489bcf75cd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 1, y: 0}
+  direction: {x: -1, y: 1}
   speed: 2
   maxDistance: 1
+  patrolLineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  patrolLineWidth: 0.1
+  patrolLineColor: {r: 0.3019608, g: 0.7843138, b: 0.9921569, a: 1}
 --- !u!114 &7804262640723327356
 MonoBehaviour:
   m_ObjectHideFlags: 0
