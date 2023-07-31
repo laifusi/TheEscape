@@ -16,6 +16,7 @@ public class CamButton : MonoBehaviour
     float cameraTimer;
     SpriteRenderer spriteRenderer;
     AudioSource audioSource;
+    List<CamTimer> cameraTimers = new List<CamTimer>();
 
     public Action<bool> OnCameraButton;
 
@@ -33,6 +34,11 @@ public class CamButton : MonoBehaviour
         foreach(CamButton camButton in otherCamButtons)
         {
             camButton.OnCameraButton += OtherButtonPressed;
+        }
+
+        foreach(GameObject camera in cameraVisions)
+        {
+            cameraTimers.AddRange(camera.transform.parent.GetComponentsInChildren<CamTimer>());
         }
     }
 
@@ -71,6 +77,11 @@ public class CamButton : MonoBehaviour
                     cameraVision.SetActive(true);
                 spriteRenderer.sprite = notPressed;
                 audioSource.Stop();
+            }
+
+            foreach (CamTimer timer in cameraTimers)
+            {
+                timer.UpdateTimer(totalOffTime - cameraTimer);
             }
         }
     }
