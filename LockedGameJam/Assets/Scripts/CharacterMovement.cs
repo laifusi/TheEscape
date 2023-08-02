@@ -8,6 +8,8 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] float velocity = 5;
     [SerializeField] float swipeThreshold = 125;
     [SerializeField] float velocityMax = 200;
+    [SerializeField] Transform enteringPoint;
+    [SerializeField] Transform startingPoint;
 
     Rigidbody2D rigidbody2d;
     private Transform myTransform;
@@ -32,8 +34,30 @@ public class CharacterMovement : MonoBehaviour
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         myTransform = transform;
-        startPosition = myTransform.position;
+        startPosition = startingPoint.position;
+
+        if (enteringPoint != null)
+            StartCoroutine(AnimateEntering());
+        else
+            transform.position = startingPoint.position;
     }
+
+    IEnumerator AnimateEntering()
+    {
+        myTransform.position = enteringPoint.position;
+
+        float startTime = Time.time;
+
+        while(Vector3.Distance(myTransform.position, startPosition) > 0.01f)
+        {
+            float distCovered = (Time.time - startTime) * velocity;
+            float fractionOfJourney = distCovered / Vector3.Distance(enteringPoint.position, startingPoint.position);
+
+            myTransform.position = Vector3.Lerp(enteringPoint.position, startingPoint.position, fractionOfJourney);
+            yield return 0;
+        }
+    }
+
     private void Update()
     {
         if (!caught)
@@ -141,23 +165,6 @@ public class CharacterMovement : MonoBehaviour
             #if UNITY_STANDALONE
             if(!moving)
                 rigidbody2d.AddForce(new Vector2(horizontal, vertical) * velocity*150);
-            //rigidbody2d.velocity += new Vector2(velocity * horizontal, velocity * vertical);
-            /*if(rigidbody2d.velocity.x > velocityMax)
-            {
-                rigidbody2d.velocity = new Vector2(velocityMax, rigidbody2d.velocity.y);
-            }
-            else if (rigidbody2d.velocity.x < -velocityMax)
-            {
-                rigidbody2d.velocity = new Vector2(-velocityMax, rigidbody2d.velocity.y);
-            }
-            else if (rigidbody2d.velocity.y > velocityMax)
-            {
-                rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, velocityMax);
-            }
-            else if (rigidbody2d.velocity.y < -velocityMax)
-            {
-                rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, -velocityMax);
-            }*/
             #endif
 
             #if UNITY_ANDROID
@@ -226,4 +233,15 @@ public class CharacterMovement : MonoBehaviour
 
         OnDied?.Invoke();
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if(enteringPoint != null && startingPoint != null)
+        {
+            Gizmos.color = new Color(1, 0.5f, 0.5f);
+            Gizmos.DrawLine(enteringPoint.position, startingPoint.position);
+        }
+    }
+#endif
 }

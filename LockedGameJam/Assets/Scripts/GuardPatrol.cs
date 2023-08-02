@@ -7,6 +7,7 @@ public class GuardPatrol : MonoBehaviour
     [SerializeField] Vector2 direction;
     [SerializeField] float speed = 2;
     [SerializeField] float maxDistance = 2;
+    [SerializeField] Transform trickStartPosition;
 
     [Header("Patrol Line Config")]
     [SerializeField] Material patrolLineMaterial;
@@ -19,6 +20,11 @@ public class GuardPatrol : MonoBehaviour
     {
         startPosition = transform.position;
         PaintPatrolLine();
+
+        if(trickStartPosition != null)
+        {
+            transform.position = trickStartPosition.position;
+        }
     }
 
     private void PaintPatrolLine()
