@@ -1992,6 +1992,10 @@ PrefabInstance:
       propertyPath: winCanvas
       value: 
       objectReference: {fileID: 2145901767}
+    - target: {fileID: 800632405372595265, guid: 48567a8de7aab7c40aa42b1c483f4908, type: 3}
+      propertyPath: minigameLevel
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5328647257893803050, guid: 48567a8de7aab7c40aa42b1c483f4908, type: 3}
       propertyPath: m_Name
       value: Door
