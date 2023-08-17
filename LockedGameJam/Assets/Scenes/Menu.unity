@@ -7603,6 +7603,7 @@ MonoBehaviour:
   minigameLevelsPerPage: 8
   storyModeMenu: {fileID: 6570874}
   minigameMenu: {fileID: 1794518315}
+  levelManager: {fileID: 1120719992}
 --- !u!4 &1324299604
 Transform:
   m_ObjectHideFlags: 0

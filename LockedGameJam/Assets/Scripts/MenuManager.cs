@@ -13,6 +13,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private int minigameLevelsPerPage = 8;
     [SerializeField] Transform storyModeMenu;
     [SerializeField] Transform minigameMenu;
+    [SerializeField] LevelManager levelManager;
 
     private int currentStoryPage;
     private int currentMinigamePage;
@@ -51,7 +52,7 @@ public class MenuManager : MonoBehaviour
                 Button button = Instantiate(levelButton, storyModeMenu);
                 int levelNumber = i + 1;
                 button.GetComponentInChildren<TMP_Text>().SetText("Level " + levelNumber);
-                button.onClick.AddListener(() => LevelManager.Instance.StartLevel(i));
+                button.onClick.AddListener(() => levelManager.StartLevel(levelNumber));
             }
         }
     }
@@ -76,8 +77,7 @@ public class MenuManager : MonoBehaviour
                 Button button = Instantiate(levelButton, minigameMenu);
                 int levelNumber = i + 1;
                 button.GetComponentInChildren<TMP_Text>().SetText("Level " + levelNumber);
-                button.onClick.AddListener(() => LevelManager.Instance.StartLevel(i + storyModeLevels));
-                Debug.Log(i + storyModeLevels);
+                button.onClick.AddListener(() => levelManager.StartLevel(levelNumber + storyModeLevels));
             }
         }
     }
