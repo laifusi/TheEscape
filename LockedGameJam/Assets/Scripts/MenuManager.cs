@@ -6,14 +6,21 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] private Button levelButton;
-    [SerializeField] private int storyModeLevels;
-    [SerializeField] private int minigameLevels;
-    [SerializeField] private int storyModeLevelsPerPage = 6;
-    [SerializeField] private int minigameLevelsPerPage = 8;
-    [SerializeField] Transform storyModeMenu;
-    [SerializeField] Transform minigameMenu;
+    [SerializeField] Button levelButton;
     [SerializeField] LevelManager levelManager;
+    [SerializeField] GameObject minigameLevelsButton;
+    [Header("Story Mode")]
+    [SerializeField] int storyModeLevels;
+    [SerializeField] int storyModeLevelsPerPage = 6;
+    [SerializeField] Transform storyModeMenu;
+    [SerializeField] GameObject previousSMPageButton;
+    [SerializeField] GameObject nextSMPageButton;
+    [Header("Minigame Mod")]
+    [SerializeField] int minigameLevels;
+    [SerializeField] int minigameLevelsPerPage = 8;
+    [SerializeField] Transform minigameMenu;
+    [SerializeField] GameObject previousMGPageButton;
+    [SerializeField] GameObject nextMGPageButton;
 
     private int currentStoryPage;
     private int currentMinigamePage;
@@ -30,6 +37,15 @@ public class MenuManager : MonoBehaviour
 
         if (minigameLevels % minigameLevelsPerPage != 0)
             totalMinigamePages++;
+
+        if(PlayerPrefs.GetInt("Level " + storyModeLevels) == 1)
+        {
+            minigameLevelsButton.SetActive(true);
+        }
+        else
+        {
+            minigameLevelsButton.SetActive(false);
+        }
     }
 
     public void OpenStoryLevelsMenu()
@@ -40,6 +56,9 @@ public class MenuManager : MonoBehaviour
             {
                 Destroy(child.gameObject);
             }
+
+            previousSMPageButton.SetActive(currentStoryPage != 0);
+            nextSMPageButton.SetActive(currentStoryPage != totalStoryPages - 1);
 
             int firstLevelFromCurrentPage = storyModeLevelsPerPage * currentStoryPage;
             int lastLevelOfCurrentPage = firstLevelFromCurrentPage + storyModeLevelsPerPage;
@@ -53,6 +72,11 @@ public class MenuManager : MonoBehaviour
                 int levelNumber = i + 1;
                 button.GetComponentInChildren<TMP_Text>().SetText("Level " + levelNumber);
                 button.onClick.AddListener(() => levelManager.StartLevel(levelNumber));
+                
+                if (PlayerPrefs.GetInt("Level " + i) == 1 || i == 0)
+                {
+                    button.interactable = true;
+                }
             }
         }
     }
@@ -66,6 +90,9 @@ public class MenuManager : MonoBehaviour
                 Destroy(child.gameObject);
             }
 
+            previousMGPageButton.SetActive(currentMinigamePage != 0);
+            nextMGPageButton.SetActive(currentMinigamePage != totalMinigamePages - 1);
+
             int firstLevelFromCurrentPage = minigameLevelsPerPage * currentMinigamePage;
             int lastLevelOfCurrentPage = firstLevelFromCurrentPage + minigameLevelsPerPage;
 
@@ -78,6 +105,7 @@ public class MenuManager : MonoBehaviour
                 int levelNumber = i + 1;
                 button.GetComponentInChildren<TMP_Text>().SetText("Level " + levelNumber);
                 button.onClick.AddListener(() => levelManager.StartLevel(levelNumber + storyModeLevels));
+                button.interactable = true;
             }
         }
     }
@@ -117,4 +145,13 @@ public class MenuManager : MonoBehaviour
         else
             currentMinigamePage = 0;
     }
+
+
+#if UNITY_EDITOR
+    [ContextMenu("ResetPlayerPrefs")]
+    public void ResetPlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+#endif
 }

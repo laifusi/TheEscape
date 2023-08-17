@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EscapeSensor : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class EscapeSensor : MonoBehaviour
         var character = collision.GetComponent<CharacterMovement>();
         if (character != null)
         {
+            PlayerPrefs.SetInt("Level " + SceneManager.GetActiveScene().buildIndex, 1);
             if(lastLevel || minigameLevel)
                 winCanvas.SetActive(true);
             Rigidbody2D charRB = character.GetComponent<Rigidbody2D>();

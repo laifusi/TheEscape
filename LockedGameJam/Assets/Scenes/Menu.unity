@@ -7712,7 +7712,7 @@ GameObject:
   - component: {fileID: 1324299604}
   - component: {fileID: 1324299603}
   m_Layer: 0
-  m_Name: LevelMenusManager
+  m_Name: MenusManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7731,13 +7731,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelButton: {fileID: 6317885045046375757, guid: 0b49d2552fe4c65448b6d88dbba16a20, type: 3}
-  storyModeLevels: 22
-  minigameLevels: 8
-  storyModeLevelsPerPage: 6
-  minigameLevelsPerPage: 8
-  storyModeMenu: {fileID: 6570874}
-  minigameMenu: {fileID: 1794518315}
   levelManager: {fileID: 1120719992}
+  minigameLevelsButton: {fileID: 62007800}
+  storyModeLevels: 22
+  storyModeLevelsPerPage: 6
+  storyModeMenu: {fileID: 6570874}
+  previousSMPageButton: {fileID: 1543893652}
+  nextSMPageButton: {fileID: 243216749}
+  minigameLevels: 8
+  minigameLevelsPerPage: 8
+  minigameMenu: {fileID: 1794518315}
+  previousMGPageButton: {fileID: 1842361902}
+  nextMGPageButton: {fileID: 1123136072}
 --- !u!4 &1324299604
 Transform:
   m_ObjectHideFlags: 0
