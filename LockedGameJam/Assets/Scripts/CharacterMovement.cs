@@ -200,12 +200,12 @@ public class CharacterMovement : MonoBehaviour
         canGoLeft = value;
     }
 
-    public void Die()
+    public void Die(float timeToWait)
     {
-        StartCoroutine(WaitForRestart());
+        StartCoroutine(WaitForRestart(timeToWait));
     }
 
-    IEnumerator WaitForRestart()
+    IEnumerator WaitForRestart(float timeToWait)
     { 
         #if UNITY_STANDALONE
         rigidbody2d.velocity = Vector2.zero;
@@ -220,7 +220,7 @@ public class CharacterMovement : MonoBehaviour
         caught = true;
         Time.timeScale = 0;
 
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(timeToWait);
 
         Time.timeScale = 1;
         transform.position = startPosition;

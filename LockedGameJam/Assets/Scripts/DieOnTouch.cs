@@ -14,7 +14,7 @@ public class DieOnTouch : MonoBehaviour
             {
                 audioSource.Play();
             }
-            character.Die();
+            character.Die(1.5f);
         }
     }
 }

@@ -722,6 +722,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 157373597, guid: e6bc595427747fe4bb34eb2594cafb51, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: 8472118624783356764, guid: e6bc595427747fe4bb34eb2594cafb51, type: 3}
       propertyPath: m_Name
       value: EnteringData
