@@ -26,7 +26,7 @@ public class CamButton : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         CharacterMovement.OnDied += ResetCameras;
-        EscapeSensor.OnWin += TurnCameraOff;
+        EscapeSensor.OnWin += DeactivateCamera;
 
         if (otherCamButtons == null)
             return;
@@ -52,7 +52,9 @@ public class CamButton : MonoBehaviour
     {
         audioSource.Stop();
         foreach (GameObject cameraVision in cameraVisions)
+        {
             cameraVision.SetActive(false);
+        }
     }
 
     private void ResetCameras()
@@ -73,8 +75,9 @@ public class CamButton : MonoBehaviour
             if(cameraTimer >= totalOffTime)
             {
                 cameraOff = false;
-                foreach(GameObject cameraVision in cameraVisions)
-                    cameraVision.SetActive(true);
+                if(cameraVisions != null)
+                    foreach(GameObject cameraVision in cameraVisions)
+                        cameraVision.SetActive(true);
                 spriteRenderer.sprite = notPressed;
                 audioSource.Stop();
             }
@@ -116,10 +119,20 @@ public class CamButton : MonoBehaviour
         }
     }
 
+    private void DeactivateCamera()
+    {
+        audioSource.Stop();
+        foreach (GameObject cameraVision in cameraVisions)
+        {
+            Destroy(cameraVision);
+        }
+        cameraVisions = null;
+    }
+
     private void OnDestroy()
     {
         CharacterMovement.OnDied -= ResetCameras;
-        EscapeSensor.OnWin -= TurnCameraOff;
+        EscapeSensor.OnWin -= DeactivateCamera;
 
         if (otherCamButtons == null)
             return;

@@ -12,17 +12,22 @@ public class LevelManager : MonoBehaviour
 
     public void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(GetCurrentLevel() + 1);
     }
 
     public void RestartLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(GetCurrentLevel());
     }
 
     public void Menu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public int GetCurrentLevel()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
     }
 
     public void Exit()
