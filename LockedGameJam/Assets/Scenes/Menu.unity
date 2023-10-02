@@ -12941,6 +12941,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 6570874}
     m_Modifications:
+    - target: {fileID: 5954714457099777678, guid: 0b49d2552fe4c65448b6d88dbba16a20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6317885045046375755, guid: 0b49d2552fe4c65448b6d88dbba16a20, type: 3}
       propertyPath: m_Name
       value: LevelXButton
@@ -13029,10 +13033,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6317885045046375757, guid: 0b49d2552fe4c65448b6d88dbba16a20, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1120719991}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b49d2552fe4c65448b6d88dbba16a20, type: 3}

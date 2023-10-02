@@ -72,6 +72,7 @@ public class MenuManager : MonoBehaviour
                 int levelNumber = i + 1;
                 button.GetComponentInChildren<TMP_Text>().SetText("Level " + levelNumber);
                 button.onClick.AddListener(() => levelManager.StartLevel(levelNumber));
+                button.GetComponent<MenuLevelButton>().LevelNumber = levelNumber;
                 
                 if (PlayerPrefs.GetInt("Level " + i) == 1 || i == 0)
                 {
@@ -106,6 +107,7 @@ public class MenuManager : MonoBehaviour
                 button.GetComponentInChildren<TMP_Text>().SetText("Level " + levelNumber);
                 button.onClick.AddListener(() => levelManager.StartLevel(levelNumber + storyModeLevels));
                 button.interactable = true;
+                button.GetComponent<MenuLevelButton>().LevelNumber = levelNumber + storyModeLevels;
             }
         }
     }
