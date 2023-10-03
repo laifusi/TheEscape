@@ -209,6 +209,7 @@ public class CharacterMovement : MonoBehaviour
     IEnumerator WaitForRestart(float timeToWait)
     { 
         rigidbody2d.velocity = Vector2.zero;
+        movements.Clear();
 
         moving = false;
         var movementsSaved = movements.Count;

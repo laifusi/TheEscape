@@ -749,6 +749,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3991796337903354033, guid: 3f0d01dd4efa8044da37c38b3d209e20, type: 3}
+      propertyPath: extraTimeForAndroid
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3991796337903354033, guid: 3f0d01dd4efa8044da37c38b3d209e20, type: 3}
       propertyPath: cameraVisions.Array.size
       value: 1
       objectReference: {fileID: 0}
