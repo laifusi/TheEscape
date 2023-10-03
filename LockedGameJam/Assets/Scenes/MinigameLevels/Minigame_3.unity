@@ -396,6 +396,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7804262640723327352, guid: fcd5d8dcf44821f40ae2ef725ea510ec, type: 3}
+      propertyPath: maxDistance
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7804262640723327355, guid: fcd5d8dcf44821f40ae2ef725ea510ec, type: 3}
       propertyPath: m_Name
       value: Guard

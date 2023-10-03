@@ -8,6 +8,7 @@ public class CamButton : MonoBehaviour
     [SerializeField] GameObject[] cameraVisions;
     [SerializeField] AudioClip press;
     [SerializeField] float totalOffTime;
+    [SerializeField] float extraTimeForAndroid = 0.1f;
     [SerializeField] Sprite notPressed;
     [SerializeField] Sprite pressed;
     [SerializeField] CamButton[] otherCamButtons;
@@ -40,6 +41,10 @@ public class CamButton : MonoBehaviour
         {
             cameraTimers.AddRange(camera.transform.parent.GetComponentsInChildren<CamTimer>());
         }
+
+        #if UNITY_ANDROID
+        totalOffTime += extraTimeForAndroid;
+        #endif
     }
 
     private void OtherButtonPressed(bool camOff)

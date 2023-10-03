@@ -155,6 +155,9 @@ MonoBehaviour:
   velocity: 10
   swipeThreshold: 100
   velocityMax: 160
+  enteringPoint: {fileID: 0}
+  startingPoint: {fileID: 0}
+  androidForce: 200
 --- !u!114 &4472567155126041762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,6 +241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd763f6fb212544aa68f3805b238e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  side: 3
+  character: {fileID: 4472567155126041773}
 --- !u!1 &4472567155771625674
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,6 +314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd763f6fb212544aa68f3805b238e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  side: 2
+  character: {fileID: 4472567155126041773}
 --- !u!1 &4472567155985330095
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,6 +387,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd763f6fb212544aa68f3805b238e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  side: 1
+  character: {fileID: 4472567155126041773}
 --- !u!1 &4472567156711527117
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,3 +603,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd763f6fb212544aa68f3805b238e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  side: 0
+  character: {fileID: 4472567155126041773}

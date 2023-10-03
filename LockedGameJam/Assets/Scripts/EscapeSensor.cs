@@ -34,14 +34,9 @@ public class EscapeSensor : MonoBehaviour
             PlayerPrefs.SetInt("Level " + levelManager.GetCurrentLevel(), 1);
 
             float currentHighscore = PlayerPrefs.GetFloat("HighScore " + levelManager.GetCurrentLevel());
-            Debug.Log("-----");
-            Debug.Log(currentHighscore);
-            Debug.Log(Time.time - initialTime);
             if (Time.time - initialTime < currentHighscore || currentHighscore == 0)
             {
-                Debug.Log("New HS");
                 PlayerPrefs.SetFloat("HighScore " + levelManager.GetCurrentLevel(), Mathf.Round((Time.time - initialTime) * 100f) / 100f);
-                Debug.Log(PlayerPrefs.GetFloat("HighScore " + levelManager.GetCurrentLevel()));
                 OnNewHighscore?.Invoke();
                 timeToWait = 1.2f;
             }

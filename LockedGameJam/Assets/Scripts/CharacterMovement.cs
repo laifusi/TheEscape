@@ -21,7 +21,7 @@ public class CharacterMovement : MonoBehaviour
     List<Vector2> movements = new List<Vector2>();
     private Vector2 startTouch;
     private bool drag;
-    private float androidVelocity = 10;
+    [SerializeField] private float androidForce = 10;
 
     public static Action OnDied;
 
@@ -170,15 +170,16 @@ public class CharacterMovement : MonoBehaviour
             #if UNITY_ANDROID
             if (horizontal > 0 && canGoRight || horizontal < 0 && canGoLeft || vertical > 0 && canGoUp || vertical < 0 && canGoDown)
             {
-                myTransform.Translate(horizontal * androidVelocity * Time.deltaTime, vertical * androidVelocity * Time.deltaTime, 0);
-                moving = true;
-                androidVelocity += 1;
+                rigidbody2d.AddForce(new Vector2(horizontal, vertical) * androidForce);
+                //moving = true;
+                //androidVelocity += 1;
             }
             else
             {
-                moving = false;
-                androidVelocity = 10;
+                //moving = false;
+                //androidForce = 10;
             }
+            //myTransform.Translate(horizontal * androidVelocity * Time.deltaTime, vertical * androidVelocity * Time.deltaTime, 0);
             #endif
         }
     }
@@ -207,9 +208,7 @@ public class CharacterMovement : MonoBehaviour
 
     IEnumerator WaitForRestart(float timeToWait)
     { 
-        #if UNITY_STANDALONE
         rigidbody2d.velocity = Vector2.zero;
-        #endif
 
         moving = false;
         var movementsSaved = movements.Count;
