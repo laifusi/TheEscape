@@ -45,6 +45,13 @@ public class CamButton : MonoBehaviour
         #if UNITY_ANDROID
         totalOffTime += extraTimeForAndroid;
         #endif
+
+        #if UNITY_WEBGL
+        if(Application.isMobilePlatform)
+        {
+            totalOffTime += extraTimeForAndroid;
+        }
+        #endif
     }
 
     private void OtherButtonPressed(bool camOff)

@@ -62,76 +62,27 @@ public class CharacterMovement : MonoBehaviour
     {
         if (!caught)
         {
+            #region Web Controls
+            #if UNITY_WEBGL
+            if(Application.isMobilePlatform)
+            {
+                CheckMobileControls();
+            }
+            else
+            {
+                CheckStandaloneControls();
+            }
+            #endif
+            #endregion
             #region Standalone Controls
             #if UNITY_STANDALONE
-            if (Input.GetButtonDown("MoveRight"))
-            {
-                movements.Add(new Vector2(1, 0));
-            }
-            else if (Input.GetButtonDown("MoveLeft"))
-            {
-                movements.Add(new Vector2(-1, 0));
-            }
-            else if (Input.GetButtonDown("MoveUp"))
-            {
-                movements.Add(new Vector2(0, 1));
-            }
-            else if (Input.GetButtonDown("MoveDown"))
-            {
-                movements.Add(new Vector2(0, -1));
-            }
+            CheckStandaloneControls();
             #endif
             #endregion
 
             #region Mobile Controls
             #if UNITY_ANDROID
-            if (Input.touchCount > 0)
-            {
-                var touch = Input.GetTouch(0);
-
-                if (touch.phase == TouchPhase.Began)
-                {
-                    startTouch = touch.position;
-                    drag = true;
-                }
-                else if(touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
-                {
-                    startTouch = Vector2.zero;
-                    drag = false;
-                }
-
-                if (drag)
-                {
-                    var distance = touch.position - startTouch;
-                    if(distance.magnitude > swipeThreshold)
-                    {
-                        if(Mathf.Abs(distance.x) > Mathf.Abs(distance.y))
-                        {
-                            if(distance.x > 0)
-                            {
-                                movements.Add(new Vector2(1,0));
-                            }
-                            else
-                            {
-                                movements.Add(new Vector2(-1,0));
-                            }
-                        }
-                        else
-                        {
-                            if (distance.y > 0)
-                            {
-                                movements.Add(new Vector2(0,1));
-                            }
-                            else
-                            {
-                                movements.Add(new Vector2(0,-1));
-                            }
-                        }
-
-                        startTouch = touch.position;
-                    }
-                }
-            }
+            CheckMobileControls();
             #endif
             #endregion
         }
@@ -162,26 +113,118 @@ public class CharacterMovement : MonoBehaviour
                 }
             }
 
-            #if UNITY_STANDALONE
-            if(!moving)
-                rigidbody2d.AddForce(new Vector2(horizontal, vertical) * velocity*150);
-            #endif
-
-            #if UNITY_ANDROID
-            if (horizontal > 0 && canGoRight || horizontal < 0 && canGoLeft || vertical > 0 && canGoUp || vertical < 0 && canGoDown)
+            #if UNITY_WEBGL
+            if(Application.isMobilePlatform)
             {
-                rigidbody2d.AddForce(new Vector2(horizontal, vertical) * androidForce);
-                //moving = true;
-                //androidVelocity += 1;
+                MoveMobile();
             }
             else
             {
-                //moving = false;
-                //androidForce = 10;
+                MoveStandalone();
             }
-            //myTransform.Translate(horizontal * androidVelocity * Time.deltaTime, vertical * androidVelocity * Time.deltaTime, 0);
+            #endif
+
+            #if UNITY_STANDALONE
+            MoveStandalone();
+            #endif
+
+            #if UNITY_ANDROID
+            MoveMobile();
             #endif
         }
+    }
+
+    private void CheckStandaloneControls()
+    {
+        if (Input.GetButtonDown("MoveRight"))
+        {
+            movements.Add(new Vector2(1, 0));
+        }
+        else if (Input.GetButtonDown("MoveLeft"))
+        {
+            movements.Add(new Vector2(-1, 0));
+        }
+        else if (Input.GetButtonDown("MoveUp"))
+        {
+            movements.Add(new Vector2(0, 1));
+        }
+        else if (Input.GetButtonDown("MoveDown"))
+        {
+            movements.Add(new Vector2(0, -1));
+        }
+    }
+
+    private void CheckMobileControls()
+    {
+        if (Input.touchCount > 0)
+        {
+            var touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                startTouch = touch.position;
+                drag = true;
+            }
+            else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
+            {
+                startTouch = Vector2.zero;
+                drag = false;
+            }
+
+            if (drag)
+            {
+                var distance = touch.position - startTouch;
+                if (distance.magnitude > swipeThreshold)
+                {
+                    if (Mathf.Abs(distance.x) > Mathf.Abs(distance.y))
+                    {
+                        if (distance.x > 0)
+                        {
+                            movements.Add(new Vector2(1, 0));
+                        }
+                        else
+                        {
+                            movements.Add(new Vector2(-1, 0));
+                        }
+                    }
+                    else
+                    {
+                        if (distance.y > 0)
+                        {
+                            movements.Add(new Vector2(0, 1));
+                        }
+                        else
+                        {
+                            movements.Add(new Vector2(0, -1));
+                        }
+                    }
+
+                    startTouch = touch.position;
+                }
+            }
+        }
+    }
+
+    private void MoveStandalone()
+    {
+        if (!moving)
+            rigidbody2d.AddForce(new Vector2(horizontal, vertical) * velocity * 150);
+    }
+
+    private void MoveMobile()
+    {
+        if (horizontal > 0 && canGoRight || horizontal < 0 && canGoLeft || vertical > 0 && canGoUp || vertical < 0 && canGoDown)
+        {
+            rigidbody2d.AddForce(new Vector2(horizontal, vertical) * androidForce);
+            //moving = true;
+            //androidVelocity += 1;
+        }
+        else
+        {
+            //moving = false;
+            //androidForce = 10;
+        }
+        //myTransform.Translate(horizontal * androidVelocity * Time.deltaTime, vertical * androidVelocity * Time.deltaTime, 0);
     }
 
     public void SetUp(bool value)
